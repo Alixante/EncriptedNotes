@@ -1,17 +1,28 @@
 from cryptography.fernet import Fernet
+import base64
+import hashlib
+from hashlib import sha256
 import os
+from getpass import getpass
+
+def password_to_base64_hash(password: str):
+    # 1. Hash SHA256 para obtener 32 bytes
+    hash_bytes = hashlib.sha256(password.encode()).digest()
+    
+    # 2. Codificar a Base64 URL-safe (como Fernet lo requiere)
+    clave_fernet = base64.urlsafe_b64encode(hash_bytes)
+
+    return clave_fernet
+
 ##ENCRYPTION SCRIPT##
+password = getpass("Enter encryption password: ")
+
+key = password_to_base64_hash(password)
+    
+fernet = Fernet(key)
 
 name = input("Enter note name: ")
 message = input("Enter the string to be encrypted: ")
-
-
-with open("key.txt", "rb") as key_file:
-    key = key_file.read()
-
-
-    
-fernet = Fernet(key)
 
 encMessage = fernet.encrypt(message.encode())
 
