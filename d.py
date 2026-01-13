@@ -5,6 +5,7 @@ from hashlib import sha256
 import hashlib
 import base64
 from getpass import getpass
+import colorama
 
 def password_to_base64_hash(password: str):
     # 1. Hash SHA256 para obtener 32 bytes
@@ -16,6 +17,7 @@ def password_to_base64_hash(password: str):
     return clave_fernet
 
 ##COLORS
+colorama.init()
 RED = '\033[91m'
 NORMAL = '\033[0m'
 ##DECRYPTION SCRIPT##
@@ -40,19 +42,19 @@ if doAll:
             encMessage = enc_file.read()
         try:
             decMessage = fernet.decrypt(encMessage).decode()
+            print(colorama.Fore.GREEN, f"Note: {i}--> {decMessage}",colorama.Fore.RESET)
         except:
-            print(f"Note: {i}--> Could not be decrypted with this password.")
+            print(colorama.Fore.RED,f"Note: {i}--> Could not be decrypted with this password.", colorama.Fore.RESET)
             continue
-        print(f"Note: {i}--> {decMessage}")
 
 else:
     with open(f"notes/{note_name}.txt", "rb") as enc_file:
         encMessage = enc_file.read()
     try:
         decMessage = fernet.decrypt(encMessage).decode()
+        print(colorama.Fore.GREEN,decMessage,colorama.Fore.RESET)
     except:
-        print(f"{RED}Note: {i}--> Could not be decrypted with this password.{NORMAL}")
-    print(decMessage)
+        print(colorama.Fore.RED, f"Note: {note_name}--> Could not be decrypted with this password.", colorama.Fore.RESET)
 
 input("Press Enter to exit...")
 os.system('cls' if os.name == 'nt' else 'clear')

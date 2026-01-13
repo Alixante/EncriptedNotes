@@ -33,7 +33,6 @@ with open(f"notes/{name}.txt", "wb") as enc_file:
 # that was used for encrypting the string
 # encoded byte string is returned by decrypt method,
 # so decode it to string with decode methods
-decMessage = fernet.decrypt(encMessage).decode()
 
 input("Press Enter to exit...")
 os.system('cls' if os.name == 'nt' else 'clear')
