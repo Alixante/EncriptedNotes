@@ -59,9 +59,19 @@ else:
 input("Press Enter to exit...")
 os.system('cls' if os.name == 'nt' else 'clear')
 
+def decryptFile(password: str, doAllFiles: bool):
+    print()
 
 
-
-
-
-
+def decryptAllFiles(password: str, doAllFiles: bool):
+    try:
+        with open(f"notes/{note_name}.txt", "rb") as enc_file:
+            encMessage = enc_file.read()
+        try:
+            decMessage = fernet.decrypt(encMessage).decode()
+            print(colorama.Fore.GREEN,decMessage,colorama.Fore.RESET)
+        except:
+            print(colorama.Fore.RED, f"Note: {note_name}--> Could not be decrypted with this password.", colorama.Fore.RESET)
+            return 0
+    except NameError:
+        print(colorama.Fore.RED, f"Error: {NameError}", colorama.Fore.RESET)

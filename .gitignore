@@ -1,0 +1,8 @@
+.env
+config.env
+
+__pycache__
+hidden
+tests
+notes
+
