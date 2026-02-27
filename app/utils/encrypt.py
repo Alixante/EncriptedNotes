@@ -55,7 +55,7 @@ def encrypt_note():
 
     menu.printHeader("New Note")
     print()
-    message = input("Enter the string to be encrypted: ")
+    message = input("")
 
     print()
     name = input("File name: ")
